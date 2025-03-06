@@ -10,19 +10,21 @@ import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
 
-const Login = () => {
+const SignUp = () => {
   const emailRef = useRef("");
   const passwwordRef = useRef("");
+  const nameRef = useRef("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async () => {
-    if(!emailRef.current || !passwwordRef.current) {
-      Alert.alert("Thông báo", "Vui lòng nhập email và mật khẩu");
+    if (!emailRef.current || !passwwordRef.current || !nameRef.current) {
+      Alert.alert("Thông báo", "Vui lòng nhập email, name và mật khẩu");
       return;
     }
 
     console.log("Email", emailRef.current);
     console.log("Password", passwwordRef.current);
+    console.log("Name", nameRef.current);
     console.log("good to go");
   };
 
@@ -35,20 +37,32 @@ const Login = () => {
         <View style={{ gap: 5, marginTop: spacingY._20 }}>
           <Typo size={30} fontWeight={"800"}>
             {" "}
-            Hey,{" "}
+            Let's,{" "}
           </Typo>
           <Typo size={30} fontWeight={"800"}>
             {" "}
-            Welcome Back{" "}
+            Get Started{" "}
           </Typo>
         </View>
 
         {/* form */}
         <View style={styles.form}>
           <Typo size={16} color={colors.textLighter}>
-            Login now to track all your expenses
+            Create an account to track your expenses
           </Typo>
           {/* input */}
+
+          <Input
+            placeholder="Enter your name"
+            onChangeText={(value) => (nameRef.current = value)}
+            icon={
+              <Icons.User
+                size={verticalScale(26)}
+                color={colors.neutral300}
+                weight="fill"
+              />
+            }
+          />
 
           <Input
             placeholder="Enter your email"
@@ -75,22 +89,18 @@ const Login = () => {
             }
           />
 
-          <Typo size={14} color={colors.text} style={{ alignSelf: "flex-end" }}>
-            Forgot Passwword
-          </Typo>
-
           <Button loading={isLoading} onPress={handleSubmit}>
             <Typo fontWeight={"700"} color={colors.black} size={21}>
-              Login
+              Sign Up
             </Typo>
           </Button>
 
           {/* footer */}
           <View style={styles.footer}>
-            <Typo size={15}>Don't have an account?</Typo>
-            <Pressable onPress={() => router.push("/(auth)/signup")}>
+            <Typo size={15}>Already have an account?</Typo>
+            <Pressable onPress={() => router.push("/(auth)/login")}>
               <Typo size={15} fontWeight={"700"} color={colors.primary}>
-                Sign up
+                Login
               </Typo>
             </Pressable>
           </View>
@@ -100,7 +110,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
