@@ -27,7 +27,11 @@ const SkipButtonComponent = ({ ...rest }) => {
   );
 };
 
-const DotComponent = ({ selected }) => {
+interface DotProps {
+  selected: boolean;
+}
+
+const DotComponent = ({ selected }: DotProps) => {
   return (
     <View
       style={{
@@ -45,11 +49,11 @@ const Register = () => {
   const router = useRouter();
 
   const onDone = () => {
-    router.push("/login"); 
+    router.push("/(auth)/login"); 
   };
 
   const onSkip = () => {
-    router.replace("/welcome");
+    router.replace("/");
   };
 
   return (

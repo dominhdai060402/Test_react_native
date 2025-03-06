@@ -9,6 +9,7 @@ import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
+import { useAuth } from "@/contexts/authContext";
 
 const SignUp = () => {
   const emailRef = useRef("");
@@ -16,16 +17,20 @@ const SignUp = () => {
   const nameRef = useRef("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const {signup: registerUser} = useAuth();
+
   const handleSubmit = async () => {
     if (!emailRef.current || !passwwordRef.current || !nameRef.current) {
       Alert.alert("Thông báo", "Vui lòng nhập email, name và mật khẩu");
       return;
     }
 
-    console.log("Email", emailRef.current);
-    console.log("Password", passwwordRef.current);
-    console.log("Name", nameRef.current);
-    console.log("good to go");
+    setIsLoading(true);
+    const res = await registerUser(
+      emailRef.current,
+      passwwordRef.current,
+      nameRef.current
+    )
   };
 
   return (
