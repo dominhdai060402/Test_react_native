@@ -29,8 +29,14 @@ const SignUp = () => {
     const res = await registerUser(
       emailRef.current,
       passwwordRef.current,
-      nameRef.current
-    )
+      nameRef.current,
+    );
+
+    setIsLoading(false);
+    console.log("register result: ", res);
+    if (!res.success) {
+      Alert.alert("Sign up", res.msg);
+    }
   };
 
   return (
