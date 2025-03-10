@@ -39,14 +39,8 @@ const Login = () => {
         <BackButton iconSize={28} />
 
         <View style={{ gap: 5, marginTop: spacingY._20 }}>
-          <Typo size={30} fontWeight={"800"}>
-            {" "}
-            Hey,{" "}
-          </Typo>
-          <Typo size={30} fontWeight={"800"}>
-            {" "}
-            Welcome Back{" "}
-          </Typo>
+          <Typo size={30} fontWeight={"800"}>Hey,</Typo>
+          <Typo size={30} fontWeight={"800"}>Welcome Back</Typo>
         </View>
 
         {/* form */}

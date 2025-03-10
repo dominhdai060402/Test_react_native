@@ -5,14 +5,48 @@ import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import { colors } from "@/app-example/constants/theme";
+import { colors, spacingY } from "@/app-example/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import * as Icons from "phosphor-react-native";
+import Typo from "./Typo";
+
 
 export default function CustomTabs({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps) {
+
+  const tabbarIcons: any = {
+    index: (isFocused: boolean)=>(
+      <Icons.House
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+        />
+    ),
+    statistics: (isFocused: boolean)=>(
+      <Icons.ChartBar
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+        />
+    ),
+    wallet: (isFocused: boolean)=>(
+      <Icons.Wallet
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+        />
+    ),
+    profile: (isFocused: boolean)=>(
+      <Icons.User
+        size={verticalScale(30)}
+        weight={isFocused ? "fill" : "regular"}
+        color={isFocused ? colors.primary : colors.neutral400}
+        />
+    ),
+  }
 
   return (
     <View style={styles.tabbar}>
@@ -48,19 +82,23 @@ export default function CustomTabs({
 
         return (
           <TouchableOpacity
-            //href={buildHref(route.name, route.params)}
+            key={route.name}
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={styles.tabbarItem}
           >
-            <Text style={{ color: isFocused ? colors.primary : colors.neutral800 }}>
-              {label}
-            </Text>
+            <View style={{ alignItems: "center" }}>
+              {tabbarIcons[route.name] ? tabbarIcons[route.name](isFocused) : null}
+              <Typo size={12} color={isFocused ? colors.primary : colors.neutral400}>
+                {label}
+              </Typo>
+            </View>
           </TouchableOpacity>
         );
+        
       })}
     </View>
   );
@@ -74,6 +112,14 @@ const styles = StyleSheet.create({
         height: Platform.OS == 'ios'? verticalScale(73) : verticalScale(55),
         backgroundColor: colors.neutral800,
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        borderTopColor: colors.neutral700,
+        borderTopWidth: 1,
+    },
+
+    tabbarItem: {
+      marginBottom: Platform.OS == 'ios'? spacingY._10 : spacingY._5,
+      justifyContent: "center",
+      alignItems: "center",
     }
 })

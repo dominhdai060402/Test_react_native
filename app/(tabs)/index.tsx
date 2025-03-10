@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import React from 'react'
 import Typo from '@/components/Typo'
 import { colors } from '@/app-example/constants/theme'
@@ -10,8 +10,13 @@ import ScreenWrapper from '@/components/ScreenWrapper'
 const Home = () => {
 
   const handleLogout = async () => {
-    await signOut(auth);
-  }
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
 
   return (
     <ScreenWrapper>
